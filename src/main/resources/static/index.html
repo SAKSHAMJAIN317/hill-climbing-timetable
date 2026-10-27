@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="web_dashboard" name="shell-type"/>
+    <title>SmartSched AI — AI-Based College Timetable & Exam Scheduler</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    
+    <style>
+        @layer base {
+            html, body { margin: 0; padding: 0; }
+            body { overscroll-behavior: none; }
+            main > :first-child { margin-top: 0 !important; }
+            main > :last-child { margin-bottom: 0 !important; }
+        }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary-fixed": "#0f0069",
+                        "on-surface": "#0b1c30",
+                        "surface-tint": "#4d44e3",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed": "#001d31",
+                        "tertiary": "#004c76",
+                        "primary": "#3525cd",
+                        "secondary-container": "#dae2fd",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-error": "#ffffff",
+                        "on-tertiary-container": "#bedfff",
+                        "inverse-primary": "#c3c0ff",
+                        "surface-container": "#e5eeff",
+                        "outline-variant": "#c7c4d8",
+                        "inverse-surface": "#213145",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "error-container": "#ffdad6",
+                        "background": "#f8f9ff",
+                        "secondary": "#565e74",
+                        "secondary-fixed": "#dae2fd",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed": "#131b2e",
+                        "primary-container": "#4f46e5",
+                        "primary-fixed-dim": "#c3c0ff",
+                        "tertiary-fixed-dim": "#93ccff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-fixed-variant": "#004b73",
+                        "surface-bright": "#f8f9ff",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "surface": "#f8f9ff",
+                        "primary-fixed": "#e2dfff",
+                        "outline": "#777587",
+                        "on-primary-container": "#dad7ff",
+                        "tertiary-fixed": "#cce5ff",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary": "#ffffff",
+                        "surface-variant": "#d3e4fe",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-surface-variant": "#464555",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed-variant": "#3323cc",
+                        "on-secondary-container": "#5c647a",
+                        "tertiary-container": "#00659a",
+                        "on-background": "#0b1c30",
+                        "surface-dim": "#cbdbf5",
+                        "surface-container-high": "#dce9ff"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "space-md": "0.75rem",
+                        "margin-desktop": "1.5rem",
+                        "space-sm": "0.5rem",
+                        "margin": "1rem",
+                        "space-xs": "0.25rem",
+                        "gutter-desktop": "1rem",
+                        "space-lg": "1rem",
+                        "space-xl": "1.5rem",
+                        "gutter": "0.75rem"
+                    },
+                    fontFamily: {
+                        "code-sm": ["IBM Plex Sans"],
+                        "body-md": ["IBM Plex Sans"],
+                        "body-sm": ["IBM Plex Sans"],
+                        "title-sm": ["IBM Plex Sans"],
+                        "headline-md": ["IBM Plex Sans"],
+                        "label-sm": ["IBM Plex Sans"],
+                        "headline-sm": ["IBM Plex Sans"],
+                        "label-md": ["IBM Plex Sans"],
+                        "title-md": ["IBM Plex Sans"],
+                        "headline-lg": ["IBM Plex Sans"]
+                    },
+                    fontSize: {
+                        "code-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0em", "fontWeight": "500" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "title-sm": ["13px", { "lineHeight": "18px", "letterSpacing": "0em", "fontWeight": "600" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.025em", "fontWeight": "600" }],
+                        "headline-sm": ["16px", { "lineHeight": "24px", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+                        "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }],
+                        "title-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0em", "fontWeight": "600" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body class="bg-surface font-body-md text-body-md text-on-surface antialiased">
+
+    <!-- Fixed Left Sidebar -->
+    <aside id="sidebar" class="fixed left-0 top-0 bottom-0 w-[250px] bg-inverse-surface z-50 flex flex-col justify-between overflow-y-auto">
+        <div class="flex flex-col">
+            <!-- Brand -->
+            <div class="h-14 px-space-lg flex items-center gap-space-sm bg-inverse-surface shadow-[0_1px_8px_rgba(0,0,0,0.12)]">
+                <div class="w-8 h-8 rounded-lg bg-primary-container flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-on-primary text-[18px]">school</span>
+                </div>
+                <div class="flex flex-col min-w-0">
+                    <span class="font-title-sm text-title-sm text-inverse-on-surface truncate tracking-tight">SmartSched AI</span>
+                    <span class="font-label-sm text-label-sm text-secondary-fixed-dim truncate">Timetable &amp; Exam Engine</span>
+                </div>
+            </div>
+
+            <!-- Navigation Sections -->
+            <div class="px-space-md py-space-sm">
+                <div class="px-space-sm pt-space-md pb-space-xs font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-wider">CORE INTELLIGENCE</div>
+                <nav class="flex flex-col gap-space-xs">
+                    <a aria-current="page" class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg transition-colors bg-primary-container text-on-primary font-title-sm" data-path="dashboard" href="#">
+                        <span class="material-symbols-outlined text-[18px]">dashboard</span>
+                        <span>Dashboard</span>
+                    </a>
+                    <a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg text-secondary-fixed-dim hover:bg-surface-container-highest/20 hover:text-inverse-on-surface transition-colors font-body-sm text-body-sm" data-path="ai-generator" href="#">
+                        <span class="material-symbols-outlined text-[18px]">psychology</span>
+                        <span>AI Generator</span>
+                    </a>
+                    <a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg text-secondary-fixed-dim hover:bg-surface-container-highest/20 hover:text-inverse-on-surface transition-colors font-body-sm text-body-sm" data-path="timetable-grid" href="#">
+                        <span class="material-symbols-outlined text-[18px]">calendar_view_week</span>
+                        <span>Timetable Grid</span>
+                    </a>
+                    <a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg text-secondary-fixed-dim hover:bg-surface-container-highest/20 hover:text-inverse-on-surface transition-colors font-body-sm text-body-sm" data-path="hill-climbing-guide" href="#">
+                        <span class="material-symbols-outlined text-[18px]">menu_book</span>
+                        <span>Hill Climbing Guide</span>
+                    </a>
+                    <a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg text-secondary-fixed-dim hover:bg-surface-container-highest/20 hover:text-inverse-on-surface transition-colors font-body-sm text-body-sm" data-path="exam-scheduler" href="#">
+                        <span class="material-symbols-outlined text-[18px]">event_available</span>
+                        <span>Exam Scheduler</span>
+                    </a>
+                </nav>
+
+                <div class="px-space-sm pt-space-md pb-space-xs font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-wider">RESOURCE MANAGEMENT</div>
+                <nav class="flex flex-col gap-space-xs">
+                    <a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg text-secondary-fixed-dim hover:bg-surface-container-highest/20 hover:text-inverse-on-surface transition-colors font-body-sm text-body-sm" data-path="faculty" href="#">
+                        <span class="material-symbols-outlined text-[18px]">group</span>
+                        <span>Faculty</span>
+                    </a>
+                    <a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg text-secondary-fixed-dim hover:bg-surface-container-highest/20 hover:text-inverse-on-surface transition-colors font-body-sm text-body-sm" data-path="subjects" href="#">
+                        <span class="material-symbols-outlined text-[18px]">auto_stories</span>
+                        <span>Subjects</span>
+                    </a>
+                    <a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg text-secondary-fixed-dim hover:bg-surface-container-highest/20 hover:text-inverse-on-surface transition-colors font-body-sm text-body-sm" data-path="student-batches" href="#">
+                        <span class="material-symbols-outlined text-[18px]">groups</span>
+                        <span>Student Batches</span>
+                    </a>
+                    <a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg text-secondary-fixed-dim hover:bg-surface-container-highest/20 hover:text-inverse-on-surface transition-colors font-body-sm text-body-sm" data-path="classrooms-labs" href="#">
+                        <span class="material-symbols-outlined text-[18px]">meeting_room</span>
+                        <span>Classrooms &amp; Labs</span>
+                    </a>
+                </nav>
+
+                <div class="px-space-sm pt-space-md pb-space-xs font-label-sm text-label-sm text-secondary-fixed-dim uppercase tracking-wider">STORAGE &amp; EXPORTS</div>
+                <nav class="flex flex-col gap-space-xs">
+                    <a class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg text-secondary-fixed-dim hover:bg-surface-container-highest/20 hover:text-inverse-on-surface transition-colors font-body-sm text-body-sm" data-path="run-history-csv" href="#">
+                        <span class="material-symbols-outlined text-[18px]">history</span>
+                        <span>Run History &amp; CSV</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <div class="p-space-md m-space-sm bg-inverse-surface/60 rounded-xl flex items-center justify-between">
+            <div class="flex items-center gap-space-sm min-w-0">
+                <div class="w-2 h-2 rounded-full bg-secondary-fixed-dim shrink-0"></div>
+                <div class="flex flex-col min-w-0">
+                    <span class="font-label-sm text-label-sm text-inverse-on-surface truncate">Hill Solver v4.2</span>
+                    <span class="font-label-sm text-label-sm text-secondary-fixed-dim truncate">0 Hard Violations</span>
+                </div>
+            </div>
+            <span class="material-symbols-outlined text-secondary-fixed-dim text-[16px]">tune</span>
+        </div>
+    </aside>
+
+    <!-- Main Wrapper with Left Padding -->
+    <div class="pl-[250px]" id="main-wrapper">
+        <!-- Fixed Top Header -->
+        <header class="fixed top-0 left-[250px] right-0 h-14 bg-surface/90 backdrop-blur-xl z-40 shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+            <div class="h-14 w-full px-margin-desktop flex items-center justify-between gap-space-md">
+                <div class="flex items-center gap-space-md min-w-0">
+                    <div class="flex items-center gap-space-sm px-space-sm py-space-xs rounded-lg bg-surface-container-low">
+                        <span class="material-symbols-outlined text-primary text-[18px]">apartment</span>
+                        <span class="font-title-sm text-title-sm text-on-surface truncate">Faculty of Engineering &amp; Technology</span>
+                    </div>
+                    <div class="flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container-lowest shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
+                        <span class="w-2 h-2 rounded-full bg-primary-container shrink-0 animate-pulse"></span>
+                        <span class="font-label-sm text-label-sm text-on-surface" id="stat-status-badge">System Ready</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-space-sm shrink-0">
+                    <!-- Demo Scenarios Dropdown -->
+                    <div class="relative" id="dropdown-demo-wrapper">
+                        <button id="btn-toggle-demo-dropdown" class="h-8 px-space-md rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors flex items-center gap-space-xs" type="button">
+                            <span class="material-symbols-outlined text-secondary text-[16px]">science</span>
+                            <span>Demo Scenarios</span>
+                            <span class="material-symbols-outlined text-secondary text-[16px]">expand_more</span>
+                        </button>
+                        <div id="demo-dropdown-menu" class="hidden absolute right-0 mt-1 w-64 bg-surface-container-lowest rounded-xl shadow-lg border border-surface-container p-1 z-50">
+                            <div class="px-space-sm py-1 font-label-sm text-secondary uppercase tracking-wider">1-Click Test Scenarios</div>
+                            <button id="btn-load-demo-normal" class="w-full text-left px-space-sm py-1.5 rounded-lg hover:bg-surface font-body-sm text-on-surface flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary text-[16px]">check_circle</span>
+                                <span>Load Standard (Solvable)</span>
+                            </button>
+                            <button id="btn-load-demo-constrained" class="w-full text-left px-space-sm py-1.5 rounded-lg hover:bg-surface font-body-sm text-on-surface flex items-center gap-2">
+                                <span class="material-symbols-outlined text-tertiary text-[16px]">tune</span>
+                                <span>Load Constrained (Tight Labs)</span>
+                            </button>
+                            <div class="my-1 border-t border-surface-container"></div>
+                            <button id="btn-load-demo-impossible" class="w-full text-left px-space-sm py-1.5 rounded-lg hover:bg-error-container/20 font-body-sm text-error flex items-center gap-2">
+                                <span class="material-symbols-outlined text-error text-[16px]">warning</span>
+                                <span>Load Impossible (Honest Clash)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <a href="/api/schedules/export.csv" class="h-8 px-space-sm rounded-lg bg-surface-container-lowest text-secondary font-label-md text-label-md hover:bg-surface-container-low hover:text-on-surface transition-colors flex items-center gap-space-xs" title="Export Schedules">
+                        <span class="material-symbols-outlined text-[16px]">file_download</span>
+                        <span class="hidden lg:inline">Export</span>
+                    </a>
+
+                    <button class="h-8 px-space-md rounded-lg bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary hover:text-on-primary transition-colors flex items-center gap-space-xs shadow-[0_1px_4px_rgba(79,70,229,0.2)]" onclick="showView('timetable-generator')" type="button">
+                        <span class="material-symbols-outlined text-[16px]">bolt</span>
+                        <span>Quick Generate</span>
+                    </button>
+
+                    <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0 ml-space-xs">
+                        <span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Views Container -->
+        <main class="relative pt-14 w-full bg-surface min-h-screen">
+            
+            <!-- VIEW 1: DASHBOARD -->
+            <section id="view-dashboard" class="app-view flex flex-col w-full">
+                <div class="px-margin-desktop py-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+                    
+                    <!-- Top Operations Strip & Context -->
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-xs">
+                        <div class="flex flex-col gap-0.5">
+                            <div class="flex items-center gap-space-xs text-secondary font-label-md text-label-md">
+                                <span>Academic Operations</span>
+                                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                                <span class="text-on-surface font-title-sm">Execution Dashboard</span>
+                            </div>
+                            <div class="flex items-center gap-space-sm mt-0.5">
+                                <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Academic Scheduling Matrix</h1>
+                                <div class="flex items-center gap-1.5 px-space-sm py-0.5 rounded-full bg-surface-container-high text-on-surface font-label-sm text-label-sm">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+                                    <span>Solver Ready: Engine v2.4 (Hill Climbing)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-space-sm self-start lg:self-center">
+                            <div class="flex items-center gap-space-xs px-space-sm py-1 rounded-lg bg-surface-container-low text-secondary font-code-sm text-code-sm">
+                                <span class="material-symbols-outlined text-[15px]">schedule</span>
+                                <span>Sync: <strong class="text-on-surface">14:02:18 UTC</strong></span>
+                            </div>
+                            <button class="h-9 px-space-md rounded-lg bg-surface-container-lowest text-on-surface font-title-sm text-title-sm shadow-sm hover:bg-surface-container-low transition-colors flex items-center gap-space-xs" onclick="showView('batches')" type="button">
+                                <span class="material-symbols-outlined text-secondary text-[18px]">upload_file</span>
+                                <span>Import Batches</span>
+                            </button>
+                            <button class="h-9 px-space-md rounded-lg bg-primary-container text-on-primary font-title-sm text-title-sm shadow hover:bg-primary transition-colors flex items-center gap-space-xs" onclick="showView('timetable-generator')" type="button">
+                                <span class="material-symbols-outlined text-[18px]">play_arrow</span>
+                                <span>Quick Generate Schedule</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Metric Summary Grid -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-space-md">
+                        <!-- Faculty Metric Card -->
+                        <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+                            <div class="flex items-start justify-between">
+                                <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Faculty</span>
+                                <div class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-primary text-[16px]">badge</span>
+                                </div>
+                            </div>
+                            <div class="mt-space-md">
+                                <div class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight" id="stat-faculty-count">11</div>
+                                <div class="font-label-sm text-label-sm text-secondary truncate mt-0.5">100% capacity assigned</div>
+                            </div>
+                        </div>
+
+                        <!-- Subjects Metric Card -->
+                        <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+                            <div class="flex items-start justify-between">
+                                <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Subjects</span>
+                                <div class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-tertiary text-[16px]">menu_book</span>
+                                </div>
+                            </div>
+                            <div class="mt-space-md">
+                                <div class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight" id="stat-subject-count">14</div>
+                                <div class="font-label-sm text-label-sm text-secondary truncate mt-0.5">8 theory, 6 practical labs</div>
+                            </div>
+                        </div>
+
+                        <!-- Student Batches Metric Card -->
+                        <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+                            <div class="flex items-start justify-between">
+                                <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Batches</span>
+                                <div class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-secondary text-[16px]">groups</span>
+                                </div>
+                            </div>
+                            <div class="mt-space-md">
+                                <div class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight" id="stat-batch-count">4</div>
+                                <div class="font-label-sm text-label-sm text-secondary truncate mt-0.5">CSE-5A, 5B, IT-5A, ECE</div>
+                            </div>
+                        </div>
+
+                        <!-- Classrooms & Labs Metric Card -->
+                        <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+                            <div class="flex items-start justify-between">
+                                <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Rooms &amp; Labs</span>
+                                <div class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-primary text-[16px]">meeting_room</span>
+                                </div>
+                            </div>
+                            <div class="mt-space-md">
+                                <div class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight" id="stat-room-count">7</div>
+                                <div class="font-label-sm text-label-sm text-secondary truncate mt-0.5">5 lecture, 2 hardware labs</div>
+                            </div>
+                        </div>
+
+                        <!-- Hard Conflicts Metric Card -->
+                        <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between relative overflow-hidden">
+                            <div class="flex items-start justify-between">
+                                <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Hard Conflicts</span>
+                                <div class="w-7 h-7 rounded-lg bg-surface-container-low flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-primary text-[16px]">verified</span>
+                                </div>
+                            </div>
+                            <div class="mt-space-md">
+                                <div class="flex items-baseline gap-space-xs">
+                                    <span class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight" id="stat-violations">0</span>
+                                    <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Clashes</span>
+                                </div>
+                                <div class="flex items-center gap-1 mt-0.5 font-label-sm text-label-sm text-on-surface-variant">
+                                    <span class="material-symbols-outlined text-[13px]">check_circle</span>
+                                    <span>Room/prof zero overlap</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Schedule Quality Metric Card -->
+                        <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col justify-between">
+                            <div class="flex items-start justify-between">
+                                <span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary">Schedule Quality</span>
+                                <div class="w-7 h-7 rounded-lg bg-secondary-container flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-primary text-[16px]">speed</span>
+                                </div>
+                            </div>
+                            <div class="mt-space-md">
+                                <div class="flex items-baseline gap-space-xs">
+                                    <span class="font-headline-lg text-headline-lg text-primary font-semibold tracking-tight" id="stat-fitness">66.2%</span>
+                                    <span class="font-label-sm text-label-sm text-secondary font-normal">Score</span>
+                                </div>
+                                <div class="font-label-sm text-label-sm text-secondary truncate mt-0.5">
+                                    Penalty: <span id="stat-penalty">102.0</span> (Feasible)
+                                    <span id="stat-scheduled-count" class="hidden">0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Operational Banner / Solver Status -->
+                    <div class="relative overflow-hidden rounded-xl bg-inverse-surface text-inverse-on-surface p-space-lg shadow-md">
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-lg relative z-10">
+                            <div class="flex items-start gap-space-md max-w-3xl">
+                                <div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-on-primary text-[22px]">psychology</span>
+                                </div>
+                                <div class="flex flex-col gap-1">
+                                    <div class="flex items-center gap-space-sm flex-wrap">
+                                        <span class="font-headline-sm text-headline-sm text-inverse-on-surface">SmartSched AI Hill Climbing Engine</span>
+                                        <span class="px-space-xs py-0.5 rounded bg-primary-container/40 text-on-primary-container font-code-sm text-code-sm font-semibold">ALGO: STEEPEST-DESCENT-RESTART</span>
+                                    </div>
+                                    <p class="font-body-sm text-body-sm text-secondary-fixed-dim leading-relaxed">
+                                        Autonomous timetabling powered by hill climbing local search with penalty minimization. Real-time deterministic penalty verification avoids instructor double-booking, room capacity overages, and student travel clashes.
+                                    </p>
+                                    <div class="flex items-center gap-space-md mt-1 font-code-sm text-code-sm text-secondary-fixed-dim">
+                                        <span class="flex items-center gap-1">
+                                            <span class="text-tertiary-fixed-dim font-semibold">Objective:</span>
+                                            <code>Cost = (Hard_Violations &times; 1000) + Soft_Penalty</code>
+                                        </span>
+                                        <span class="hidden sm:inline text-secondary">&bull;</span>
+                                        <span class="hidden sm:flex items-center gap-1">
+                                            <span class="text-secondary-fixed-dim">Restarts:</span>
+                                            <span class="text-inverse-on-surface">5 Seeds</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-space-sm shrink-0 self-start lg:self-center">
+                                <a class="h-9 px-space-md rounded-lg bg-inverse-surface/80 hover:bg-surface-container-highest/20 text-inverse-on-surface font-title-sm text-title-sm transition-colors flex items-center gap-space-xs" href="#" onclick="showView('viva-guide')">
+                                    <span class="material-symbols-outlined text-[18px]">menu_book</span>
+                                    <span>Algorithmic Guide</span>
+                                </a>
+                                <a class="h-9 px-space-md rounded-lg bg-primary text-on-primary hover:bg-primary-container font-title-sm text-title-sm transition-colors flex items-center gap-space-xs shadow" href="#" onclick="showView('timetable-viewer')">
+                                    <span class="material-symbols-outlined text-[18px]">table_chart</span>
+                                    <span>View Live Matrix</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Workspace Main Grid: Runs Table + Utilization Peek -->
+                    <div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg">
+                        <!-- Main Runs Table Pane (8 cols on large screens) -->
+                        <div class="xl:col-span-8 flex flex-col gap-space-md">
+                            <div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md">
+                                <div class="flex items-center justify-between pb-space-sm mb-space-sm">
+                                    <div class="flex items-center gap-space-sm">
+                                        <span class="material-symbols-outlined text-primary text-[20px]">history_edu</span>
+                                        <div class="flex flex-col">
+                                            <h2 class="font-title-md text-title-md text-on-surface">Recent Optimization Engine Runs</h2>
+                                            <span class="font-label-sm text-label-sm text-secondary">Historical solver convergence runs &amp; constraint penalties</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-space-xs">
+                                        <div class="relative">
+                                            <input class="h-8 pl-8 pr-2 rounded-lg bg-surface text-on-surface font-body-sm text-body-sm w-36 focus:w-48 transition-all focus:outline-none border border-outline-variant/30" placeholder="Filter Run ID..." type="text"/>
+                                            <span class="material-symbols-outlined absolute left-2 top-2 text-secondary text-[16px]">search</span>
+                                        </div>
+                                        <button class="h-8 px-space-sm rounded-lg bg-surface hover:bg-surface-container text-on-surface font-label-md text-label-md flex items-center gap-1 transition-colors" onclick="renderDashboard()" type="button">
+                                            <span class="material-symbols-outlined text-[16px]">refresh</span>
+                                            <span>Refresh</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Tabular Runs Table -->
+                                <div class="overflow-x-auto w-full">
+                                    <table class="w-full text-left">
+                                        <thead>
+                                            <tr class="bg-surface font-label-sm text-label-sm text-secondary uppercase tracking-wider">
+                                                <th class="py-2.5 px-space-sm rounded-l-lg font-semibold">Run ID</th>
+                                                <th class="py-2.5 px-space-sm font-semibold">Algorithm &amp; Mode</th>
+                                                <th class="py-2.5 px-space-sm font-semibold">Validation</th>
+                                                <th class="py-2.5 px-space-sm text-right font-semibold">Hard Violations</th>
+                                                <th class="py-2.5 px-space-sm text-right font-semibold">Soft Penalty</th>
+                                                <th class="py-2.5 px-space-sm text-right font-semibold">Quality</th>
+                                                <th class="py-2.5 px-space-sm text-right font-semibold">Runtime</th>
+                                                <th class="py-2.5 px-space-sm text-right font-semibold">States</th>
+                                                <th class="py-2.5 px-space-sm text-right rounded-r-lg font-semibold">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="recent-runs-tbody" class="divide-y divide-surface-container font-body-sm text-body-sm">
+                                            <!-- Dynamically populated by app.js -->
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- Table Footer Pagination -->
+                                <div class="flex items-center justify-between pt-space-md mt-space-sm text-secondary font-label-md text-label-md">
+                                    <span>Active Engine: <strong class="text-on-surface">Hill Climbing</strong> (Deterministic Local Search)</span>
+                                    <div class="flex items-center gap-1">
+                                        <button class="p-1 rounded hover:bg-surface text-secondary transition-colors" disabled="" type="button">
+                                            <span class="material-symbols-outlined text-[16px]">chevron_left</span>
+                                        </button>
+                                        <span class="px-2 py-0.5 rounded bg-surface-container font-semibold text-on-surface">1</span>
+                                        <button class="p-1 rounded hover:bg-surface text-secondary transition-colors" type="button">
+                                            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Algorithmic Convergence Sparkline Card -->
+                            <div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md">
+                                <div class="flex items-center justify-between mb-space-sm">
+                                    <div class="flex flex-col">
+                                        <span class="font-title-sm text-title-sm text-on-surface">Convergence Penalty Trajectory</span>
+                                        <span class="font-label-sm text-label-sm text-secondary">Hill climbing cost minimization across iterations (Run #8921)</span>
+                                    </div>
+                                    <div class="flex items-center gap-space-sm font-code-sm text-code-sm">
+                                        <span class="flex items-center gap-1 text-secondary">
+                                            <span class="w-2.5 h-0.5 bg-primary inline-block"></span>
+                                            <span>Soft Cost: 102.0</span>
+                                        </span>
+                                        <span class="flex items-center gap-1 text-secondary">
+                                            <span class="w-2.5 h-0.5 bg-error inline-block"></span>
+                                            <span>Hard Clashes: 0</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="w-full h-28 bg-surface rounded-lg p-space-sm relative flex items-end">
+                                    <svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 700 80">
+                                        <defs>
+                                            <lineargradient id="gradient-area" x1="0%" x2="0%" y1="0%" y2="100%">
+                                                <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.2"></stop>
+                                                <stop offset="100%" stop-color="#4f46e5" stop-opacity="0.0"></stop>
+                                            </lineargradient>
+                                        </defs>
+                                        <line stroke="#dae2fd" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="700" y1="20" y2="20"></line>
+                                        <line stroke="#dae2fd" stroke-dasharray="4 4" stroke-width="1" x1="0" x2="700" y1="50" y2="50"></line>
+                                        <polygon fill="url(#gradient-area)" points="0,75 0,10 70,24 150,30 220,18 310,40 400,42 490,58 580,62 650,65 700,66 700,75"></polygon>
+                                        <polyline fill="none" points="0,10 70,24 150,30 220,18 310,40 400,42 490,58 580,62 650,65 700,66" stroke="#4f46e5" stroke-linejoin="round" stroke-width="2.5"></polyline>
+                                        <circle cx="220" cy="18" fill="#ba1a1a" r="3"></circle>
+                                        <circle cx="700" cy="66" fill="#3525cd" r="3"></circle>
+                                    </svg>
+                                    <div class="absolute top-2 left-4 text-[10px] font-code-sm text-secondary">Initial: 2240 (2 Hard)</div>
+                                    <div class="absolute bottom-2 right-4 text-[10px] font-code-sm text-primary font-bold">Converged: 102 (0 Hard)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Auxiliary Side Pane: Resource Utilization Quick Peek -->
+                        <div class="xl:col-span-4 flex flex-col gap-space-md">
+                            <!-- Campus Real-time Facility Visual -->
+                            <div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+                                <div class="relative h-32 w-full">
+                                    <img class="w-full h-full object-cover" alt="Engineering faculty building architectural interior" src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=800&q=80"/>
+                                    <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface via-inverse-surface/40 to-transparent"></div>
+                                    <div class="absolute bottom-3 left-4 right-4 flex items-center justify-between text-inverse-on-surface">
+                                        <div>
+                                            <div class="font-title-sm text-title-sm">Block E - Tech Complex</div>
+                                            <div class="font-label-sm text-label-sm text-secondary-fixed-dim">7 Scheduled Lecture Rooms</div>
+                                        </div>
+                                        <span class="px-2 py-0.5 rounded bg-primary-container text-on-primary font-label-sm text-label-sm font-semibold">Active Term</span>
+                                    </div>
+                                </div>
+                                <div class="p-space-md flex flex-col gap-space-md">
+                                    <!-- Room Occupancy Metric -->
+                                    <div class="flex flex-col gap-1.5">
+                                        <div class="flex items-center justify-between font-label-md text-label-md">
+                                            <span class="text-on-surface font-semibold">Facility Occupancy Rate</span>
+                                            <span class="text-primary font-code-sm font-bold">78.4% Peak</span>
+                                        </div>
+                                        <div class="w-full h-2 rounded-full bg-surface-container overflow-hidden">
+                                            <div class="h-full bg-primary-container rounded-full" style="width: 78.4%;"></div>
+                                        </div>
+                                        <div class="flex items-center justify-between font-label-sm text-label-sm text-secondary">
+                                            <span>Total Weekly Capacity: 180 slots</span>
+                                            <span>141 Assigned</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Faculty Workload Distribution -->
+                                    <div class="flex flex-col gap-2 pt-space-xs">
+                                        <span class="font-title-sm text-title-sm text-on-surface">Faculty Workload Distribution</span>
+                                        <div class="flex flex-col gap-1.5 font-label-sm text-label-sm">
+                                            <div class="flex items-center justify-between p-2 rounded-lg bg-surface">
+                                                <div class="flex items-center gap-space-xs">
+                                                    <span class="w-5 h-5 rounded-full bg-surface-container-highest flex items-center justify-center font-bold text-[10px] text-primary">DS</span>
+                                                    <span class="text-on-surface font-medium">Dr. D. Sharma</span>
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-secondary font-code-sm">18 hrs/wk</span>
+                                                    <span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface font-semibold text-[10px]">Optimal</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between p-2 rounded-lg bg-surface">
+                                                <div class="flex items-center gap-space-xs">
+                                                    <span class="w-5 h-5 rounded-full bg-surface-container-highest flex items-center justify-center font-bold text-[10px] text-primary">AK</span>
+                                                    <span class="text-on-surface font-medium">Prof. A. Kumar</span>
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-secondary font-code-sm">16 hrs/wk</span>
+                                                    <span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface font-semibold text-[10px]">Optimal</span>
+                                                </div>
+                                            </div>
+                                            <div class="flex items-center justify-between p-2 rounded-lg bg-surface">
+                                                <div class="flex items-center gap-space-xs">
+                                                    <span class="w-5 h-5 rounded-full bg-surface-container-highest flex items-center justify-center font-bold text-[10px] text-primary">RV</span>
+                                                    <span class="text-on-surface font-medium">Dr. R. Verma</span>
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-secondary font-code-sm">14 hrs/wk</span>
+                                                    <span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface font-semibold text-[10px]">Capacity</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Soft Constraint Breakdown -->
+                                    <div class="flex flex-col gap-2 pt-space-xs">
+                                        <span class="font-title-sm text-title-sm text-on-surface">Soft Constraint Penalty Ledger</span>
+                                        <div class="grid grid-cols-2 gap-space-xs">
+                                            <div class="p-2 rounded-lg bg-surface flex flex-col">
+                                                <span class="text-secondary font-label-sm text-label-sm">Faculty Idle Windows</span>
+                                                <span class="font-code-sm text-code-sm font-semibold text-on-surface">32.0 pts</span>
+                                            </div>
+                                            <div class="p-2 rounded-lg bg-surface flex flex-col">
+                                                <span class="text-secondary font-label-sm text-label-sm">Classroom Switches</span>
+                                                <span class="font-code-sm text-code-sm font-semibold text-on-surface">45.0 pts</span>
+                                            </div>
+                                            <div class="p-2 rounded-lg bg-surface flex flex-col">
+                                                <span class="text-secondary font-label-sm text-label-sm">Late Friday Slots</span>
+                                                <span class="font-code-sm text-code-sm font-semibold text-on-surface">15.0 pts</span>
+                                            </div>
+                                            <div class="p-2 rounded-lg bg-surface flex flex-col">
+                                                <span class="text-secondary font-label-sm text-label-sm">Lab Block Split</span>
+                                                <span class="font-code-sm text-code-sm font-semibold text-on-surface">10.0 pts</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Quick Operational Link Module -->
+                            <div class="p-space-md rounded-xl bg-surface-container-low flex items-center justify-between">
+                                <div class="flex items-center gap-space-sm">
+                                    <div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary shadow-sm">
+                                        <span class="material-symbols-outlined text-[18px]">terminal</span>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="font-title-sm text-title-sm text-on-surface">Diagnostic Solver Logs</span>
+                                        <span class="font-label-sm text-label-sm text-secondary">Export raw JSON matrix telemetry</span>
+                                    </div>
+                                </div>
+                                <button class="h-8 px-space-sm rounded-lg bg-surface-container-lowest hover:bg-surface text-on-surface font-label-md text-label-md transition-colors flex items-center gap-1 shadow-sm" onclick="showView('history')" type="button">
+                                    <span>Inspect</span>
+                                    <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- VIEW 2: AI GENERATOR -->
+            <section id="view-timetable-generator" class="app-view hidden flex flex-col w-full">
+                <div class="px-margin-desktop py-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+                    <div class="flex flex-col gap-0.5">
+                        <div class="flex items-center gap-space-xs text-secondary font-label-md">
+                            <span>Core Intelligence</span>
+                            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                            <span class="text-on-surface font-title-sm">Autonomous Solver</span>
+                        </div>
+                        <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">Hill Climbing Generator</h1>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
+                        <!-- Configuration Form -->
+                        <div class="lg:col-span-5 flex flex-col gap-space-md">
+                            <div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-md">
+                                <div class="flex items-center gap-space-sm border-b border-surface-container pb-space-sm">
+                                    <span class="material-symbols-outlined text-primary text-[22px]">tune</span>
+                                    <div class="flex flex-col">
+                                        <h2 class="font-title-md text-title-md text-on-surface">Solver Configuration</h2>
+                                        <span class="font-label-sm text-secondary">Parameter tuning for heuristic local search</span>
+                                    </div>
+                                </div>
+
+                                <div class="p-space-sm rounded-lg bg-surface-container-low text-secondary font-body-sm flex items-center gap-space-sm">
+                                    <span class="material-symbols-outlined text-primary text-[18px]">info</span>
+                                    <span>Engine: Pure Hill Climbing with Steepest Descent &amp; Random Restarts.</span>
+                                </div>
+
+                                <form id="generator-form" class="flex flex-col gap-space-md">
+                                    <div class="flex flex-col gap-1">
+                                        <label class="font-label-sm text-secondary uppercase tracking-wider font-semibold">Timetable Name</label>
+                                        <input type="text" id="gen-name" class="h-9 px-space-sm rounded-lg bg-surface text-on-surface font-body-sm border border-outline-variant/40 focus:border-primary focus:outline-none" value="Odd Semester Weekly Timetable"/>
+                                    </div>
+
+                                    <div class="grid grid-cols-2 gap-space-sm">
+                                        <div class="flex flex-col gap-1">
+                                            <label class="font-label-sm text-secondary uppercase tracking-wider font-semibold">Maximum Iterations</label>
+                                            <input type="number" id="gen-iterations" class="h-9 px-space-sm rounded-lg bg-surface text-on-surface font-body-sm border border-outline-variant/40 focus:border-primary focus:outline-none" value="2000" min="100" max="100000"/>
+                                            <span class="text-[11px] text-secondary">Search iterations executed</span>
+                                        </div>
+                                        <div class="flex flex-col gap-1">
+                                            <label class="font-label-sm text-secondary uppercase tracking-wider font-semibold">Random Restarts</label>
+                                            <input type="number" id="gen-restarts" class="h-9 px-space-sm rounded-lg bg-surface text-on-surface font-body-sm border border-outline-variant/40 focus:border-primary focus:outline-none" value="5" min="1" max="20"/>
+                                            <span class="text-[11px] text-secondary">Escapes local plateau traps</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="p-space-md rounded-lg bg-surface border border-surface-container flex flex-col gap-1 text-secondary font-body-sm">
+                                        <div class="flex items-center gap-1 font-title-sm text-on-surface">
+                                            <span class="material-symbols-outlined text-primary text-[16px]">functions</span>
+                                            <span>Objective Penalty Function:</span>
+                                        </div>
+                                        <div class="font-code-sm text-code-sm text-primary font-semibold">Cost = (Hard_Violations &times; 1000) + Soft_Penalty</div>
+                                        <span class="text-[12px] text-secondary mt-1">&bull; Eliminates room collisions, faculty double-booking, and travel fatigue.</span>
+                                    </div>
+
+                                    <button type="button" id="btn-generate-schedule" class="h-10 px-space-md rounded-lg bg-primary-container text-on-primary font-title-sm shadow hover:bg-primary transition-colors flex items-center justify-center gap-space-xs">
+                                        <span class="material-symbols-outlined text-[18px]">play_arrow</span>
+                                        <span>Generate Timetable (Hill Climbing)</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Result Panel -->
+                        <div class="lg:col-span-7 flex flex-col gap-space-md">
+                            <div id="gen-result-card" class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-col gap-space-md hidden">
+                                <div class="flex items-center justify-between border-b border-surface-container pb-space-sm">
+                                    <div class="flex items-center gap-space-sm">
+                                        <span class="material-symbols-outlined text-primary text-[22px]">analytics</span>
+                                        <div class="flex flex-col">
+                                            <h2 class="font-title-md text-title-md text-on-surface">Generation Metrics &amp; Diagnostics</h2>
+                                            <span class="font-label-sm text-secondary">Deterministic penalty evaluation telemetry</span>
+                                        </div>
+                                    </div>
+                                    <button class="h-8 px-space-md rounded-lg bg-primary-container text-on-primary font-title-sm hover:bg-primary transition-colors flex items-center gap-1" onclick="showView('timetable-viewer')" type="button">
+                                        <span class="material-symbols-outlined text-[16px]">visibility</span>
+                                        <span>View in Grid</span>
+                                    </button>
+                                </div>
+
+                                <div class="grid grid-cols-3 gap-space-sm text-center">
+                                    <div class="p-space-sm rounded-lg bg-surface border border-surface-container flex flex-col items-center">
+                                        <span class="font-label-sm text-secondary uppercase">Result Status</span>
+                                        <div id="res-status" class="mt-1 font-title-sm text-title-sm font-bold">-</div>
+                                    </div>
+                                    <div class="p-space-sm rounded-lg bg-surface border border-surface-container flex flex-col items-center">
+                                        <span class="font-label-sm text-secondary uppercase">Execution Time</span>
+                                        <div id="res-time" class="mt-1 font-title-sm text-title-sm text-primary font-bold">0 ms</div>
+                                    </div>
+                                    <div class="p-space-sm rounded-lg bg-surface border border-surface-container flex flex-col items-center">
+                                        <span class="font-label-sm text-secondary uppercase">Quality Score</span>
+                                        <div id="res-fitness" class="mt-1 font-title-sm text-title-sm text-primary font-bold">0%</div>
+                                    </div>
+                                </div>
+
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-left font-body-sm">
+                                        <tbody class="divide-y divide-surface-container">
+                                            <tr>
+                                                <th class="py-2 px-3 bg-surface font-semibold text-secondary w-1/2">Algorithm</th>
+                                                <td id="res-algo" class="py-2 px-3 text-on-surface font-semibold">-</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="py-2 px-3 bg-surface font-semibold text-secondary">Hard Violations</th>
+                                                <td id="res-hard" class="py-2 px-3 text-error font-bold">0</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="py-2 px-3 bg-surface font-semibold text-secondary">Soft Constraint Penalty</th>
+                                                <td id="res-soft" class="py-2 px-3 text-on-surface">0.0</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="py-2 px-3 bg-surface font-semibold text-secondary">Explored States</th>
+                                                <td id="res-states" class="py-2 px-3 text-secondary">-</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="py-2 px-3 bg-surface font-semibold text-secondary">Iterations Executed</th>
+                                                <td id="res-iterations-executed" class="py-2 px-3 text-secondary">-</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="py-2 px-3 bg-surface font-semibold text-secondary">Diagnostic Output</th>
+                                                <td id="res-notes" class="py-2 px-3 text-secondary text-xs">-</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="flex flex-col gap-1">
+                                    <span class="font-label-sm uppercase tracking-wider text-secondary font-semibold">Constraint Validator Verification</span>
+                                    <div id="res-violations-list" class="flex flex-col gap-1"></div>
+                                </div>
+
+                                <div id="res-chart-container" class="mt-2 flex flex-col gap-1 hidden">
+                                    <span class="font-label-sm uppercase tracking-wider text-secondary font-semibold">Fitness Optimization Curve</span>
+                                    <div class="h-44 w-full bg-surface rounded-lg p-2 border border-surface-container">
+                                        <canvas id="fitnessCurveChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 3: TIMETABLE GRID -->
+            <section id="view-timetable-viewer" class="app-view hidden flex flex-col w-full">
+                <div class="px-margin-desktop py-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+                    <div class="flex flex-col gap-0.5">
+                        <div class="flex items-center gap-space-xs text-secondary font-label-md">
+                            <span>Core Intelligence</span>
+                            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                            <span class="text-on-surface font-title-sm">Timetable Grid</span>
+                        </div>
+                        <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">Weekly Schedule Matrix</h1>
+                    </div>
+
+                    <!-- Filter Strip & Summary -->
+                    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md flex flex-wrap items-center justify-between gap-space-md">
+                        <div class="flex items-center gap-space-sm flex-wrap">
+                            <select id="filter-batch" class="h-8 px-space-sm rounded-lg bg-surface text-on-surface font-body-sm border border-outline-variant/40 focus:outline-none min-w-[160px]">
+                                <option value="">All Batches</option>
+                            </select>
+                            <select id="filter-faculty" class="h-8 px-space-sm rounded-lg bg-surface text-on-surface font-body-sm border border-outline-variant/40 focus:outline-none min-w-[160px]">
+                                <option value="">All Faculty</option>
+                            </select>
+                            <select id="filter-room" class="h-8 px-space-sm rounded-lg bg-surface text-on-surface font-body-sm border border-outline-variant/40 focus:outline-none min-w-[160px]">
+                                <option value="">All Rooms</option>
+                            </select>
+                        </div>
+
+                        <div class="flex items-center gap-space-md flex-wrap">
+                            <div class="flex items-center gap-space-xs font-label-sm text-secondary">
+                                <span>Status: <strong id="view-summary-status" class="px-2 py-0.5 rounded-full bg-surface-container font-semibold text-primary">-</strong></span>
+                                <span>|</span>
+                                <span>Hard Clashes: <strong id="view-summary-hard" class="text-error font-semibold">0</strong></span>
+                                <span>|</span>
+                                <span>Soft Penalty: <strong id="view-summary-soft" class="text-on-surface font-semibold">0.0</strong></span>
+                                <span>|</span>
+                                <span>Quality: <strong id="view-summary-fitness" class="text-primary font-semibold">0%</strong></span>
+                            </div>
+
+                            <div class="flex items-center gap-space-xs">
+                                <a id="btn-export-csv" href="#" class="h-8 px-space-sm rounded-lg bg-surface-container-low text-secondary font-label-md hover:bg-surface-container transition-colors flex items-center gap-1 disabled">
+                                    <span class="material-symbols-outlined text-[16px]">download</span>
+                                    <span>CSV</span>
+                                </a>
+                                <button class="h-8 px-space-sm rounded-lg bg-surface-container-low text-secondary font-label-md hover:bg-surface-container transition-colors flex items-center gap-1" onclick="window.print()" type="button">
+                                    <span class="material-symbols-outlined text-[16px]">print</span>
+                                    <span>Print</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timetable Grid Table -->
+                    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md overflow-x-auto">
+                        <table class="w-full border-collapse timetable-matrix-table">
+                            <thead>
+                                <tr class="bg-surface font-label-sm text-label-sm text-secondary uppercase tracking-wider">
+                                    <th class="p-2.5 text-center font-semibold border-b border-surface-container w-28">Time / Slot</th>
+                                    <th class="p-2.5 text-center font-semibold border-b border-surface-container">Monday</th>
+                                    <th class="p-2.5 text-center font-semibold border-b border-surface-container">Tuesday</th>
+                                    <th class="p-2.5 text-center font-semibold border-b border-surface-container">Wednesday</th>
+                                    <th class="p-2.5 text-center font-semibold border-b border-surface-container">Thursday</th>
+                                    <th class="p-2.5 text-center font-semibold border-b border-surface-container">Friday</th>
+                                </tr>
+                            </thead>
+                            <tbody id="timetable-grid-tbody" class="divide-y divide-surface-container font-body-sm">
+                                <tr><td colspan="6" class="text-center py-6 text-secondary">Loading timetable matrix...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 4: HILL CLIMBING GUIDE -->
+            <section id="view-viva-guide" class="app-view hidden flex flex-col w-full">
+                <div class="px-margin-desktop py-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+                    <div class="flex flex-col gap-0.5">
+                        <div class="flex items-center gap-space-xs text-secondary font-label-md">
+                            <span>Core Intelligence</span>
+                            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                            <span class="text-on-surface font-title-sm">Heuristic Reference</span>
+                        </div>
+                        <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">Hill Climbing Algorithm &amp; Viva Guide</h1>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-space-md">
+                        <!-- Concept Card -->
+                        <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
+                            <div class="flex items-center gap-space-sm border-b border-surface-container pb-space-sm">
+                                <span class="material-symbols-outlined text-primary text-[20px]">psychology</span>
+                                <h3 class="font-title-md text-title-md text-on-surface">1. Core Concept of Hill Climbing</h3>
+                            </div>
+                            <div class="text-secondary font-body-sm leading-relaxed flex flex-col gap-2">
+                                <p><strong>What is Hill Climbing?</strong></p>
+                                <p>Hill Climbing is a local search optimization heuristic. It begins with a candidate timetable assignment and iteratively explores neighboring configurations, greedily transitioning to whichever state yields the greatest reduction in penalty violations (steepest descent).</p>
+                                <p><strong>State Space Formulation:</strong></p>
+                                <ul class="list-disc pl-5 space-y-1">
+                                    <li><strong>State $S$:</strong> A complete assignment vector mapping each lecture session to $(Slot_i, Room_i)$.</li>
+                                    <li><strong>Initial State:</strong> Randomly sampled assignment from valid feasible domains.</li>
+                                    <li><strong>Neighborhood $N(S)$:</strong> Timetables reachable by moving one conflicted session to an alternative available room or slot.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Objective Function Card -->
+                        <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
+                            <div class="flex items-center gap-space-sm border-b border-surface-container pb-space-sm">
+                                <span class="material-symbols-outlined text-primary text-[20px]">calculate</span>
+                                <h3 class="font-title-md text-title-md text-on-surface">2. Objective Penalty Function</h3>
+                            </div>
+                            <div class="text-secondary font-body-sm leading-relaxed flex flex-col gap-2">
+                                <div class="p-space-sm rounded-lg bg-surface border border-surface-container font-code-sm text-code-sm text-primary">
+                                    <code>Cost(S) = (HardViolations &times; 1000.0) + SoftPenalty</code><br/>
+                                    <code>Quality Score(%) = 100.0 / (1.0 + 0.005 &times; Cost(S))</code>
+                                </div>
+                                <p><strong>Hard Constraints (&times;1000 penalty):</strong> Zero room clashes, zero faculty double-booking, batch conflict elimination, and lab room type matching.</p>
+                                <p><strong>Soft Constraints (Penalty minimization):</strong> Student idle gaps minimization (10 pts), room fatigue prevention (4 pts), and faculty workload balancing.</p>
+                            </div>
+                        </div>
+
+                        <!-- Random Restarts Card -->
+                        <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
+                            <div class="flex items-center gap-space-sm border-b border-surface-container pb-space-sm">
+                                <span class="material-symbols-outlined text-primary text-[20px]">refresh</span>
+                                <h3 class="font-title-md text-title-md text-on-surface">3. Overcoming Local Optima (Random Restarts)</h3>
+                            </div>
+                            <div class="text-secondary font-body-sm leading-relaxed flex flex-col gap-2">
+                                <p><strong>The Plateau &amp; Local Optima Problem:</strong></p>
+                                <p>Standard greedy hill climbing can stall when all immediate neighbors have identical or worse penalties (a plateau or ridge with residual clashes).</p>
+                                <p><strong>Multi-Start Random Restarts:</strong></p>
+                                <ul class="list-disc pl-5 space-y-1">
+                                    <li>Monitors consecutive stagnation steps without penalty improvement.</li>
+                                    <li>Re-seeds with a fresh candidate schedule while preserving the global best state found so far.</li>
+                                    <li>Ensures asymptotic completeness and convergence to clash-free global optima.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Viva Cheat Sheet -->
+                        <div class="p-space-md rounded-xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-sm">
+                            <div class="flex items-center gap-space-sm border-b border-surface-container pb-space-sm">
+                                <span class="material-symbols-outlined text-primary text-[20px]">quiz</span>
+                                <h3 class="font-title-md text-title-md text-on-surface">4. Viva Q&amp;A Cheat Sheet</h3>
+                            </div>
+                            <div class="text-secondary font-body-sm leading-relaxed flex flex-col gap-2">
+                                <div>
+                                    <strong class="text-on-surface">Q1: Why Hill Climbing instead of Brute Force?</strong>
+                                    <p class="text-xs mt-0.5">Brute force has complexity $O(|Domain|^N)$ exceeding $10^{40}$ states. Hill Climbing finds valid solutions in milliseconds via greedy neighborhood traversal.</p>
+                                </div>
+                                <div>
+                                    <strong class="text-on-surface">Q2: How is correctness verified?</strong>
+                                    <p class="text-xs mt-0.5">An independent <code>ScheduleValidator</code> audits the final timetable. It is stamped <code>VALID</code> only when hard violations are strictly zero.</p>
+                                </div>
+                                <div>
+                                    <strong class="text-on-surface">Q3: How are soft preferences handled?</strong>
+                                    <p class="text-xs mt-0.5">After reaching zero hard clashes, neighbor evaluation continues to minimize idle gap penalties, consecutive room switches, and instructor daily loads.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 5: EXAM SCHEDULER -->
+            <section id="view-exams" class="app-view hidden flex flex-col w-full">
+                <div class="px-margin-desktop py-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+                        <div class="flex flex-col gap-0.5">
+                            <div class="flex items-center gap-space-xs text-secondary font-label-md">
+                                <span>Core Intelligence</span>
+                                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                                <span class="text-on-surface font-title-sm">Exam Operations</span>
+                            </div>
+                            <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">Examination Scheduler</h1>
+                        </div>
+                        <div class="flex items-center gap-space-sm">
+                            <button id="btn-generate-exams" class="h-9 px-space-md rounded-lg bg-primary-container text-on-primary font-title-sm shadow hover:bg-primary transition-colors flex items-center gap-space-xs" type="button">
+                                <span class="material-symbols-outlined text-[18px]">add_task</span>
+                                <span>Generate Exam Schedule</span>
+                            </button>
+                            <a href="/api/exams/export.csv" class="h-9 px-space-md rounded-lg bg-surface-container-lowest text-on-surface font-title-sm shadow-sm hover:bg-surface-container-low transition-colors flex items-center gap-space-xs">
+                                <span class="material-symbols-outlined text-secondary text-[18px]">file_download</span>
+                                <span>Export Exam CSV</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md overflow-x-auto">
+                        <table class="w-full text-left font-body-sm">
+                            <thead>
+                                <tr class="bg-surface font-label-sm text-label-sm text-secondary uppercase tracking-wider">
+                                    <th class="py-2.5 px-space-sm rounded-l-lg font-semibold">Exam Date</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Day</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Time Window</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Subject</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Student Batch</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Assigned Room</th>
+                                    <th class="py-2.5 px-space-sm rounded-r-lg font-semibold">Invigilator</th>
+                                </tr>
+                            </thead>
+                            <tbody id="exam-table-tbody" class="divide-y divide-surface-container">
+                                <tr><td colspan="7" class="text-center py-6 text-secondary">Loading examinations...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 6: FACULTY MANAGEMENT -->
+            <section id="view-faculty" class="app-view hidden flex flex-col w-full">
+                <div class="px-margin-desktop py-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+                    <div class="flex items-center justify-between">
+                        <div class="flex flex-col gap-0.5">
+                            <div class="flex items-center gap-space-xs text-secondary font-label-md">
+                                <span>Resource Management</span>
+                                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                                <span class="text-on-surface font-title-sm">Faculty Directory</span>
+                            </div>
+                            <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">Faculty Members</h1>
+                        </div>
+                        <button class="h-9 px-space-md rounded-lg bg-primary-container text-on-primary font-title-sm shadow hover:bg-primary transition-colors flex items-center gap-space-xs" onclick="showToast('Use demo data or API to add faculty records.', 'info')" type="button">
+                            <span class="material-symbols-outlined text-[18px]">person_add</span>
+                            <span>Add Faculty</span>
+                        </button>
+                    </div>
+
+                    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md overflow-x-auto">
+                        <table class="w-full text-left font-body-sm">
+                            <thead>
+                                <tr class="bg-surface font-label-sm text-label-sm text-secondary uppercase tracking-wider">
+                                    <th class="py-2.5 px-space-sm rounded-l-lg font-semibold">Faculty ID</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Name</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Department</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Max Daily/Weekly Load</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Available Days</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Preferred Slots</th>
+                                    <th class="py-2.5 px-space-sm rounded-r-lg font-semibold text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="faculty-table-tbody" class="divide-y divide-surface-container"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 7: SUBJECTS -->
+            <section id="view-subjects" class="app-view hidden flex flex-col w-full">
+                <div class="px-margin-desktop py-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+                    <div class="flex items-center justify-between">
+                        <div class="flex flex-col gap-0.5">
+                            <div class="flex items-center gap-space-xs text-secondary font-label-md">
+                                <span>Resource Management</span>
+                                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                                <span class="text-on-surface font-title-sm">Curriculum</span>
+                            </div>
+                            <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">Subjects &amp; Curriculum</h1>
+                        </div>
+                        <button class="h-9 px-space-md rounded-lg bg-primary-container text-on-primary font-title-sm shadow hover:bg-primary transition-colors flex items-center gap-space-xs" onclick="showToast('Use demo data or API to add subject records.', 'info')" type="button">
+                            <span class="material-symbols-outlined text-[18px]">add</span>
+                            <span>Add Subject</span>
+                        </button>
+                    </div>
+
+                    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md overflow-x-auto">
+                        <table class="w-full text-left font-body-sm">
+                            <thead>
+                                <tr class="bg-surface font-label-sm text-label-sm text-secondary uppercase tracking-wider">
+                                    <th class="py-2.5 px-space-sm rounded-l-lg font-semibold">Code</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Subject Name</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Department &amp; Sem</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Weekly Load</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Type</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Required Room</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Assigned Faculty</th>
+                                    <th class="py-2.5 px-space-sm rounded-r-lg font-semibold text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="subject-table-tbody" class="divide-y divide-surface-container"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 8: STUDENT BATCHES -->
+            <section id="view-batches" class="app-view hidden flex flex-col w-full">
+                <div class="px-margin-desktop py-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+                    <div class="flex items-center justify-between">
+                        <div class="flex flex-col gap-0.5">
+                            <div class="flex items-center gap-space-xs text-secondary font-label-md">
+                                <span>Resource Management</span>
+                                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                                <span class="text-on-surface font-title-sm">Cohorts</span>
+                            </div>
+                            <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">Student Batches</h1>
+                        </div>
+                        <button class="h-9 px-space-md rounded-lg bg-primary-container text-on-primary font-title-sm shadow hover:bg-primary transition-colors flex items-center gap-space-xs" onclick="showToast('Use demo data or API to add student batches.', 'info')" type="button">
+                            <span class="material-symbols-outlined text-[18px]">group_add</span>
+                            <span>Add Batch</span>
+                        </button>
+                    </div>
+
+                    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md overflow-x-auto">
+                        <table class="w-full text-left font-body-sm">
+                            <thead>
+                                <tr class="bg-surface font-label-sm text-label-sm text-secondary uppercase tracking-wider">
+                                    <th class="py-2.5 px-space-sm rounded-l-lg font-semibold">Batch Code</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Department &amp; Section</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Semester</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Student Count</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Curriculum Subjects</th>
+                                    <th class="py-2.5 px-space-sm rounded-r-lg font-semibold text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="batch-table-tbody" class="divide-y divide-surface-container"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 9: CLASSROOMS & LABS -->
+            <section id="view-rooms" class="app-view hidden flex flex-col w-full">
+                <div class="px-margin-desktop py-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+                    <div class="flex items-center justify-between">
+                        <div class="flex flex-col gap-0.5">
+                            <div class="flex items-center gap-space-xs text-secondary font-label-md">
+                                <span>Resource Management</span>
+                                <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                                <span class="text-on-surface font-title-sm">Facilities</span>
+                            </div>
+                            <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">Classrooms &amp; Laboratories</h1>
+                        </div>
+                        <button class="h-9 px-space-md rounded-lg bg-primary-container text-on-primary font-title-sm shadow hover:bg-primary transition-colors flex items-center gap-space-xs" onclick="showToast('Use demo data or API to add classrooms.', 'info')" type="button">
+                            <span class="material-symbols-outlined text-[18px]">add_home_work</span>
+                            <span>Add Room</span>
+                        </button>
+                    </div>
+
+                    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md overflow-x-auto">
+                        <table class="w-full text-left font-body-sm">
+                            <thead>
+                                <tr class="bg-surface font-label-sm text-label-sm text-secondary uppercase tracking-wider">
+                                    <th class="py-2.5 px-space-sm rounded-l-lg font-semibold">Room Number</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Room Name</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Capacity</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Room Type</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Available Days</th>
+                                    <th class="py-2.5 px-space-sm rounded-r-lg font-semibold text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="room-table-tbody" class="divide-y divide-surface-container"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIEW 10: RUN HISTORY & SAVED SCHEDULES -->
+            <section id="view-history" class="app-view hidden flex flex-col w-full">
+                <div class="px-margin-desktop py-space-lg flex flex-col gap-space-lg max-w-[1720px] mx-auto w-full">
+                    <div class="flex flex-col gap-0.5">
+                        <div class="flex items-center gap-space-xs text-secondary font-label-md">
+                            <span>Storage &amp; Exports</span>
+                            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                            <span class="text-on-surface font-title-sm">Audit Trail</span>
+                        </div>
+                        <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight mt-0.5">Saved Optimization Schedules</h1>
+                    </div>
+
+                    <div class="bg-surface-container-lowest rounded-xl shadow-sm p-space-md overflow-x-auto">
+                        <table class="w-full text-left font-body-sm">
+                            <thead>
+                                <tr class="bg-surface font-label-sm text-label-sm text-secondary uppercase tracking-wider">
+                                    <th class="py-2.5 px-space-sm rounded-l-lg font-semibold">Schedule Name</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Type</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Algorithm</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Status</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Violations / Quality</th>
+                                    <th class="py-2.5 px-space-sm font-semibold">Created At</th>
+                                    <th class="py-2.5 px-space-sm rounded-r-lg font-semibold text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-tbody" class="divide-y divide-surface-container"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- MANUAL EDIT MODAL -->
+    <div id="manualEditModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-inverse-surface/60 backdrop-blur-sm p-4">
+        <div class="bg-surface-container-lowest rounded-2xl shadow-2xl p-space-lg max-w-lg w-full border border-surface-container flex flex-col gap-space-md">
+            <div class="flex items-center justify-between border-b border-surface-container pb-space-sm">
+                <div class="flex items-center gap-space-xs font-title-md text-title-md text-on-surface">
+                    <span class="material-symbols-outlined text-primary text-[20px]">edit_calendar</span>
+                    <span>Modify Session Assignment</span>
+                </div>
+                <button type="button" class="text-secondary hover:text-on-surface" onclick="closeManualEditModal()">
+                    <span class="material-symbols-outlined text-[20px]">close</span>
+                </button>
+            </div>
+
+            <div class="p-space-sm rounded-lg bg-surface border border-surface-container text-xs flex flex-col gap-1">
+                <div><strong class="text-secondary">Subject:</strong> <span id="edit-subj-name" class="text-on-surface font-semibold">-</span></div>
+                <div><strong class="text-secondary">Faculty:</strong> <span id="edit-faculty" class="text-on-surface font-semibold">-</span></div>
+                <div><strong class="text-secondary">Batch:</strong> <span id="edit-batch" class="text-on-surface font-semibold">-</span></div>
+            </div>
+
+            <div class="flex flex-col gap-space-sm">
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-sm text-secondary uppercase font-semibold">Target Time Slot</label>
+                    <select id="edit-timeslot-select" class="h-9 px-space-sm rounded-lg bg-surface text-on-surface font-body-sm border border-outline-variant/40 focus:border-primary focus:outline-none"></select>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="font-label-sm text-secondary uppercase font-semibold">Target Classroom / Lab</label>
+                    <select id="edit-room-select" class="h-9 px-space-sm rounded-lg bg-surface text-on-surface font-body-sm border border-outline-variant/40 focus:border-primary focus:outline-none"></select>
+                </div>
+            </div>
+
+            <div class="text-xs text-secondary flex items-start gap-1">
+                <span class="material-symbols-outlined text-primary text-[16px] shrink-0">verified</span>
+                <span>The independent constraint validator verifies room clashes, capacity limits, and instructor availability before saving changes.</span>
+            </div>
+
+            <div class="flex items-center justify-end gap-space-sm pt-space-xs border-t border-surface-container">
+                <button type="button" class="h-8 px-space-md rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-label-md transition-colors" onclick="closeManualEditModal()">Cancel</button>
+                <button type="button" id="btn-save-edit" class="h-8 px-space-md rounded-lg bg-primary-container text-on-primary font-label-md hover:bg-primary shadow transition-colors">Apply &amp; Validate Change</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-4 right-4 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+    <!-- App Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
