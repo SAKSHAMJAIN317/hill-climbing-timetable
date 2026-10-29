@@ -1,3 +1,8 @@
+SAKSHAM JAIN -- 2427030737
+PRIYANSHI SHARMA -- 2427030746
+
+
+
 # SmartSched AI — University Timetable & Exam Scheduler (Hill Climbing Engine)
 
 SmartSched AI is an autonomous, full-stack, enterprise-grade academic scheduling platform designed to solve high-dimensional university timetabling and examination planning problems. The optimization engine is powered exclusively by a high-performance **Hill Climbing Local Search Algorithm** with steepest-descent penalty minimization and multi-start random restarts.
